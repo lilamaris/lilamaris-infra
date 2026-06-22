@@ -26,3 +26,10 @@ scrape_configs:
           service: "caddy"
           host: "sbc"
           role: "blog"
+
+  - job_name: "lilamaris-lab-dcgm"
+    static_configs:
+      - targets:
+        - "100.110.163.11:9400"
+        labels:
+          host: "lab"
