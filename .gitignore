@@ -1,3 +1,16 @@
 site
 dist
-.env*
+
+.env
+*.env
+.env.*
+!.env.example
+
+secrets/*
+!secrets/.gitkeep
+
+*.key
+*.pem
+*.crt
+id_rsa
+id_ed25519
