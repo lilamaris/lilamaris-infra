@@ -8,3 +8,21 @@ scrape_configs:
         - "100.111.41.105:9100"
         labels:
           host: "sbc"
+
+  - job_name: "caddy-edge"
+    static_configs:
+      - targets:
+        - "edge:2020"
+        labels:
+          service: "caddy"
+          host: "sbc"
+          role: "edge"
+
+  - job_name: "caddy-blog"
+    static_configs:
+      - targets:
+        - "blog:2020"
+        labels:
+          service: "caddy"
+          host: "sbc"
+          role: "blog"

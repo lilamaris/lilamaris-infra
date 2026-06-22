@@ -1,3 +1,11 @@
+{
+  metrics
+}
+
+:2020 {
+  metrics /metrics
+}
+
 blog.lilamaris.kr, ://blog.lilamaris.kr {
   reverse_proxy anubis:8923 {
     header_up X-Real-Ip {remote_host}
