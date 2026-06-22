@@ -49,18 +49,6 @@ services:
       - caddy_data:/data
       - caddy_config:/config
 
-  registry:
-    image: registry:2
-    restart: unless-stopped
-    ports:
-      - "100.111.41.105:5000:5000"
-    environment:
-      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
-      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
-    volumes:
-      - registry_data:/var/lib/registry
-
 volumes:
   caddy_data:
   caddy_config:
-  registry_data:
