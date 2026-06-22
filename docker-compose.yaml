@@ -48,7 +48,7 @@ services:
     volumes:
       - ./conf/caddy/blog/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./log/caddy/blog:/var/log/caddy
-      - ./site:/srv
+      - ./data/blog/release:/srv
       - caddy_blog_data:/data
       - caddy_blog_config:/config
 
