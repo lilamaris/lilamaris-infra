@@ -1,10 +1,20 @@
+livedebugging {
+  enabled = true
+}
+
 local.file_match "caddy_access_logs" {
   path_targets = [
     {
-      __path__  = "/var/lib/alloy/caddy/edge/*.log",
+      __path__  = "/var/log/alloy/caddy/edge/*.log",
       service   = "caddy",
       host      = "sbc",
       role      = "edge",
+    },
+    {
+      __path__  = "/var/log/alloy/caddy/blog/*.log",
+      service   = "caddy",
+      host      = "sbc",
+      role      = "blog",
     },
   ]
 }
