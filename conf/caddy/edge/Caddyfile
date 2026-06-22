@@ -3,4 +3,9 @@ blog.lilamaris.kr, ://blog.lilamaris.kr {
     header_up X-Real-Ip {remote_host}
     header_up X-Http-Version {http.request.proto}
   }
+
+  log {
+    output file /var/log/caddy/access.log
+    format json
+  }
 }

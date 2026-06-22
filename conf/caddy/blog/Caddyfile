@@ -9,5 +9,10 @@
   @html path *.html /
   header @html Cache-Control "public, max-age=60, s-maxage=300, stale-while-revalidate=60"
 
+  log {
+    output file /var/log/caddy/access.log
+    format json
+  }
+
   file_server
 }

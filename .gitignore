@@ -1,5 +1,6 @@
 site
 dist
+log
 
 .env
 *.env

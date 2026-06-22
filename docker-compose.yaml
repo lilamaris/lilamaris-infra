@@ -8,6 +8,7 @@ services:
       - "443:443/udp"
     volumes:
       - ./conf/caddy/edge/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./log/caddy/edge:/var/log/caddy
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
@@ -41,10 +42,12 @@ services:
   blog:
     image: caddy:2.11.3-alpine
     restart: unless-stopped
+    container_name: BLOG
     expose:
       - "80"
     volumes:
       - ./conf/caddy/blog/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./log/caddy/blog:/var/log/caddy
       - ./site:/srv
       - caddy_data:/data
       - caddy_config:/config
