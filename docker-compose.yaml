@@ -7,7 +7,7 @@ services:
       - "443:443"
       - "443:443/udp"
     volumes:
-      - ./conf/edge.Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./conf/caddy/edge/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
     depends_on:
@@ -34,7 +34,7 @@ services:
       retries: 5
       start_period: 500ms
     volumes:
-      - "./conf/anubis.botPolicy.yaml:/data/cfg/botPolicy.yaml:ro"
+      - "./conf/anubis/botPolicy.yaml:/data/cfg/botPolicy.yaml:ro"
     depends_on:
       - blog 
 
@@ -44,7 +44,7 @@ services:
     expose:
       - "80"
     volumes:
-      - ./conf/blog.Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./conf/caddy/blog/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./site:/srv
       - caddy_data:/data
       - caddy_config:/config
