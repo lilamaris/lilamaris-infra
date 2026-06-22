@@ -1,0 +1,25 @@
+local.file_match "caddy_access_logs" {
+  path_targets = [
+    {
+      __path__  = "/var/lib/alloy/caddy/edge/*.log",
+      service   = "caddy",
+      host      = "sbc",
+      role      = "edge",
+    },
+  ]
+}
+
+loki.source.file "caddy_access_logs" {
+  targets     = local.file_match.caddy_access_logs.targets
+  forward_to  = [loki.process.caddy_access_logs.receiver]
+}
+
+loki.process "caddy_access_logs" {
+  forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
