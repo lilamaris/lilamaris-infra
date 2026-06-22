@@ -4,12 +4,48 @@ services:
     container_name: IMAGE_REGISTRY
     restart: unless-stopped
     ports:
-      - "${TAILSCALE_IP}:5000:5000"
+      - ${TAILSCALE_IP}:5000:5000
     environment:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
       REGISTRY_HTTP_ADDR: 0.0.0.0:5000
     volumes:
       - registry_data:/var/lib/registry
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: GRAFANA 
+    restart: unless-stopped
+    ports:
+      - ${TAILSCALE_IP}:23000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: PROMETHEUS
+    command:
+      - --config.file=/etc/prometheus/config.yml
+    ports:
+      - ${TAILSCALE_IP}:29090:9090
+    volumes:
+      - ./conf/prometheus/config.yml:/etc/prometheus/config.yml:ro
+      - prometheus_data:/prometheus
+
+  loki:
+    image: grafana/loki:latest
+    container_name: LOKI
+    user: 10001:10001
+    command:
+      - -config.file=/etc/loki/local-config.yaml
+      - -print-copnfig-stderr
+    ports:
+      - ${TAILSCALE_IP}:23100:3100
+    volumes:
+      - ./conf/loki/config.yaml:/etc/loki/local-config.yaml:ro
+      - loki_data:/loki
+
 volumes:
   registry_data:
+  grafana_data:
+  prometheus_data:
+  loki_data:
