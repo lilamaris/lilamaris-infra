@@ -19,7 +19,7 @@ services:
       - ${TAILSCALE_IP}:23000:3000
     volumes:
       - grafana_data:/var/lib/grafana
-  
+
   prometheus:
     image: prom/prometheus:latest
     container_name: PROMETHEUS
@@ -39,12 +39,23 @@ services:
     user: 10001:10001
     command:
       - -config.file=/etc/loki/local-config.yaml
-      - -print-copnfig-stderr
+      - -print-config-stderr
     ports:
       - ${TAILSCALE_IP}:23100:3100
     volumes:
       - ./conf/loki/config.yaml:/etc/loki/local-config.yaml:ro
       - loki_data:/loki
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: NODE_EXPORTER
+    restart: unless-stopped
+    network_mode: host
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+    command: 
+      - --path.rootfs=/host
 
 volumes:
   registry_data:

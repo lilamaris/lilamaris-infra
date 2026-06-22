@@ -1,2 +1,10 @@
 global:
   scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "node"
+    static_configs:
+      - targets:
+        - "100.111.41.105:9100"
+        labels:
+          host: "sbc"
