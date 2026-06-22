@@ -9,8 +9,8 @@ services:
     volumes:
       - ./conf/caddy/edge/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./log/caddy/edge:/var/log/caddy
-      - caddy_data:/data
-      - caddy_config:/config
+      - caddy_edge_data:/data
+      - caddy_edge_config:/config
     depends_on:
       - anubis
 
@@ -49,9 +49,11 @@ services:
       - ./conf/caddy/blog/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./log/caddy/blog:/var/log/caddy
       - ./site:/srv
-      - caddy_data:/data
-      - caddy_config:/config
+      - caddy_blog_data:/data
+      - caddy_blog_config:/config
 
 volumes:
-  caddy_data:
-  caddy_config:
+  caddy_edge_data:
+  caddy_edge_config:
+  caddy_blog_data:
+  caddy_blog_config:
