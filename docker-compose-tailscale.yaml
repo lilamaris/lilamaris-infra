@@ -61,6 +61,20 @@ services:
       - ./log:/var/log/alloy:ro
       - alloy_data:/var/lib/alloy
 
+  tempo:
+    image: grafana/tempo:latest
+    container_name: TEMPO
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/tempo/tempo.yaml
+    ports:
+      - ${TAILSCALE_IP}:24317:4317
+      - ${TAILSCALE_IP}:24318:4318
+      - ${TAILSCALE_IP}:23200:3200
+    volumes:
+      - ./conf/tempo/tempo.yaml:/etc/tempo/tempo.yaml:ro
+      - tempo_data:/var/tempo
+
   node-exporter:
     image: prom/node-exporter:latest
     container_name: NODE_EXPORTER
@@ -78,3 +92,4 @@ volumes:
   prometheus_data:
   loki_data:
   alloy_data:
+  tempo_data:
