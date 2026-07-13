@@ -16,6 +16,7 @@ services:
 
   anubis:
     image: ghcr.io/techarohq/anubis:latest
+    restart: unless-stopped
     pull_policy: always
     environment:
       BIND: ":8923"
