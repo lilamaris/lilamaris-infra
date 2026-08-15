@@ -23,8 +23,3 @@ scrape_configs:
         labels:
           hostname: "deneb"
           exporter: "kafka-exporter"
-      - targets:
-        - "kafka-jmx-exporter:9404"
-        labels:
-          hostname: "deneb"
-          exporter: "kafka-jmx-exporter"

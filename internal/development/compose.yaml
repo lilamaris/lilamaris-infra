@@ -101,10 +101,6 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
 
-      KAFKA_JMX_PORT: 9101
-      KAFKA_JMX_HOSTNAME: kafka
-      KAFKA_JMX_OPTS: -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false, -Dcom.sun.management.jmxremote.ssl=false, -Djava.rmi.server.hostname=kafka-broker
-
     ports:
       - 127.0.0.1:26010:9092
     volumes:
@@ -136,38 +132,6 @@ services:
       - --kafka.server=kafka:29092
     ports:
       - 127.0.0.1:26011:9308
-    networks:
-      - default
-      - observer
-
-  kafka-jmx-exporter:
-    image: bitnami/jmx-exporter:${KAFKA_JMX_EXPORTER_IMAGE_TAG:-latest}
-    restart: unless-stopped
-    container_name: internal-development-kafka-jmx-exporter
-    depends_on:
-      kafka:
-        condition: service_healthy
-
-    deploy:
-      resources:
-        limits:
-          cpus: 0.5
-          memory: 512M
-        reservations:
-          cpus: 0.2
-          memory: 256M
-
-    environment:
-
-      JVM_OPTS: -Xms256m -Xmx512m
-
-    command:
-      - "9404"
-      - /opt/bitnami/jmx-exporter/config/kafka.yml
-    volumes:
-      - ./conf/kafka-jmx-exporter/kafka.yml:/opt/bitnami/jmx-exporter/config/kafka.yml:ro
-    ports:
-      - 127.0.0.1:26012:9404
     networks:
       - default
       - observer
