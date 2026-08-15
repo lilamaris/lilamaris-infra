@@ -31,6 +31,8 @@ services:
       timeout: 5s
       retries: 3
       start_period: 30s
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   loki:
     image: grafana/loki:latest
@@ -86,12 +88,13 @@ services:
     restart: unless-stopped
     network_mode: host
     pid: host
-    expose:
-      - 9100
-    volumes:
-      - /:/host:ro,rslave
     command: 
       - --path.rootfs=/host
+      - --web.listen-address=:25910
+    expose:
+      - 25910
+    volumes:
+      - /:/host:ro,rslave
 
 volumes:
   grafana-data:

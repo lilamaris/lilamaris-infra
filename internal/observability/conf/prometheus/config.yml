@@ -1,35 +1,30 @@
 global:
-  scrape_interval: 5s
+  scrape_interval: 10s
+  scrape_timeout: 5s
 
 scrape_configs:
-  - job_name: "node metric"
+  - job_name: "node"
     static_configs:
       - targets:
-        - "node-exporter:9100"
-        labels:
-          host: "sbc"
+        - "host.docker.internal:25910"
 
-  - job_name: "caddy-edge"
+  - job_name: "postgres"
     static_configs:
       - targets:
-        - "edge:2020"
+        - "postgres-exporter:9187"
         labels:
-          service: "caddy"
-          host: "sbc"
-          role: "edge"
+          hostname: "deneb"
+          exporter: "postgres-exporter"
 
-  - job_name: "caddy-blog"
+  - job_name: "kafka"
     static_configs:
       - targets:
-        - "blog:2020"
+        - "kafka-exporter:9308"
         labels:
-          service: "caddy"
-          host: "sbc"
-          role: "blog"
-
-  - job_name: "lilamaris-lab-dcgm"
-    static_configs:
+          hostname: "deneb"
+          exporter: "kafka-exporter"
       - targets:
-        - "100.110.163.11:9400"
+        - "kafka-jmx-exporter:9404"
         labels:
-          host: "lab"
+          hostname: "deneb"
+          exporter: "kafka-jmx-exporter"
