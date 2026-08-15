@@ -2,10 +2,10 @@ global:
   scrape_interval: 5s
 
 scrape_configs:
-  - job_name: "node"
+  - job_name: "node metric"
     static_configs:
       - targets:
-        - "100.111.41.105:9100"
+        - "node-exporter:9100"
         labels:
           host: "sbc"
 

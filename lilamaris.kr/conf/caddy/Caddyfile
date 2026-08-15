@@ -1,8 +1,8 @@
 {
-  metrics
+  admin off
 }
 
-:2020 {
+:2019 {
   metrics /metrics
 }
 
@@ -13,7 +13,7 @@ blog.lilamaris.kr, ://blog.lilamaris.kr {
   }
 
   log {
-    output file /var/log/caddy/access.log
+    output stdout
     format json
   }
 }
