@@ -27,3 +27,10 @@ scrape_configs:
         labels:
           hostname: "deneb"
           exporter: "kafka-exporter"
+
+  - job_name: "caddy"
+    static_configs:
+      - targets:
+        - "caddy:2019"
+        labels:
+          hostname: "deneb"
